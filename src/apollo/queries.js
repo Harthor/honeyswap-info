@@ -8,8 +8,8 @@ const FACTORY_STARTING_BLOCK = {
 };
 
 export const SUBGRAPH_HEALTH = gql`
-  query health {
-    indexingStatusForCurrentVersion(subgraphName: "1hive/honeyswap-xdai") {
+  query health($subgraphName: String!) {
+    indexingStatusForCurrentVersion(subgraphName: $subgraphName) {
       synced
       health
       chains {
@@ -720,7 +720,7 @@ export const PAIRS_BULK = gql`
   query pairs($allPairs: [Bytes]!) {
     pairs(
       where: { id_in: $allPairs }
-      orderBy: trackedReserveNativeCurrency
+      orderBy: reserveNativeCurrency
       orderDirection: desc
     ) {
       ...PairFields
